@@ -17,3 +17,7 @@ COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY ./src /src
+
+COPY ./docker/web/entrypoint.sh docker/web-entrypoint.sh
+
+ENTRYPOINT ["/src/entrypoint.sh"]

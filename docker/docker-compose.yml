@@ -17,13 +17,27 @@ services:
     restart: always
     container_name: ob_web
     command: gunicorn --bind 0.0.0.0:8000 app.wsgi:application
+    entrypoint: /src/docker/web-entrypoint.sh
     env_file: ../src/.env
     volumes:
       - ../src/static:/src/static/
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
     depends_on:
       - postgres
+
+  nginx:
+    build:
+      context: ../.
+      dockerfile: ./docker/nginx/Dockerfile
+    restart: always
+    container_name: ob_nginx
+    volumes:
+      - ../src/static:/src/static/
+    ports:
+      - 80:80
+    depends_on:
+      - web
 
 volumes:
   db_volume:
