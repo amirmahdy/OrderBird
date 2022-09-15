@@ -1,8 +1,10 @@
 from cicd.models import Repo
+from utils.request_handler import RequestHandler
 
 
 class Github:
     def __init__(self, owner, repo) -> None:
+        self.request_handler = RequestHandler()
         self.owner = owner
         self.repository = repo
         self.header = None
@@ -21,3 +23,15 @@ class Github:
         else:
             self.header = {"Authorization": f"Bearer {self.repo_db.first().token.token}"}
             return self.repo_db.first().token.token
+
+    def call_api(self):
+
+        if self.repo_db.first() is None or self.header is None:
+            result = self.request_handler.get(self.url)
+            """
+            TODO Add non existent URL to our DB
+            """
+        elif self.header is not None:
+            result = self.request_handler.get(self.url, self.header)
+
+        return result
