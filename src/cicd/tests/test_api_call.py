@@ -13,8 +13,8 @@ class TestGetTokens(TestCase):
         """
         This test checks if using the above token we can get a result from call_api method
         """
-        from cicd.github import Github
-        github = Github('amirmahdy', 'market_data_provider')
+        from cicd.github import GithubRepos
+        github = GithubRepos('amirmahdy', 'market_data_provider')
         result = github.call_api()
         self.assertEqual(result.status_code, 200)
 
@@ -22,7 +22,7 @@ class TestGetTokens(TestCase):
         """
         This test checks if using the above token we can get a result from call_api method
         """
-        from cicd.github import Github
-        github = Github('amirmahdy', 'order_bird')
+        from cicd.github import GithubRepos
+        github = GithubRepos('amirmahdy', 'order_bird')
         result = github.call_api()
         self.assertIn(result.status_code, [401, 404])

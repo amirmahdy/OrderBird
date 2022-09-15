@@ -1,8 +1,8 @@
-from cicd.models import Repo
+from cicd.models import Repo, GithubToken
 from utils.request_handler import RequestHandler
 
 
-class Github:
+class GithubRepos:
     def __init__(self, owner, repo) -> None:
         self.request_handler = RequestHandler()
         self.owner = owner
@@ -35,3 +35,15 @@ class Github:
             result = self.request_handler.get(self.url, self.header)
 
         return result
+
+
+class GithubTokens:
+    def __init__(self) -> None:
+        pass
+
+    @staticmethod
+    def add_token(name, token):
+        """
+        TODO This method should decrypt token by secret_key.
+        """
+        return GithubToken.objects.create(name, token)
