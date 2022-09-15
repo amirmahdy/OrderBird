@@ -16,6 +16,7 @@ class AddTokenAPIView(GenericAPIView):
     @action(detail=False, methods=['get'])
     def get(self, request, *args, **kwargs):
         """
+        This method adds Github token into system
         input   -- name
         input   -- token        
         """
