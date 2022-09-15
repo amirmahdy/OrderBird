@@ -15,6 +15,18 @@
             ],
             "django": true,
             "justMyCode": true
+        },
+        {
+            "name": "Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/manage.py",
+            "args": [
+                "runserver",
+                "0.0.0.0:8002"
+            ],
+            "django": true,
+            "justMyCode": true
         }
     ]
 }
