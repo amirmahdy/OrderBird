@@ -15,7 +15,7 @@ class RepositoryAPIView(GenericAPIView):
         """
         This method adds Github Repository into system
         input   -- name
-        input   -- token        
+        input   -- token
         """
         try:
             serializer = AddRepositorySerilizer(data=request.data)
@@ -33,7 +33,26 @@ class RepositoryAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         """
         This method returns a list of repository
-        output   -- token list       
+        output   -- token list
         """
         repositories = Repo.objects.values_list('owner', 'repository').all()
         return Response({"message": repositories}, status=status.HTTP_200_OK)
+
+    @swagger_auto_schema(methods=['patch'], request_body=AddRepositorySerilizer)
+    @action(detail=False, methods=['patch'])
+    def patch(self, request, *args, **kwargs):
+        """
+        This method modifies a repository
+        """
+        serializer = AddRepositorySerilizer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            query_set = Repo.objects.filter(owner=data['owner'], repository=data['repository'])
+            if len(query_set) == 0:
+                message = "Key not found"
+            else:
+                message = "Key updated"
+                query_set.update(token=data['token'])
+            return Response({"message": message}, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)
