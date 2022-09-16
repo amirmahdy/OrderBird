@@ -24,7 +24,8 @@ class PopularityAPIView(GenericAPIView):
         serializer = RepositorySerilizer(data=request.GET)
         if serializer.is_valid():
             data = serializer.validated_data
-            GithubRepoClass()
+            github = GithubRepoClass(**data)
+            result = github.call_api()
             return Response({"message": "OK"}, status=status.HTTP_200_OK)
         else:
             return Response({"message": str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)

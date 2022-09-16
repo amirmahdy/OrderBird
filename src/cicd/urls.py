@@ -1,8 +1,10 @@
 from django.urls import path
-from cicd.views.add_token import AddTokenAPIView
+from cicd.views.token import TokenAPIView
 from cicd.views.popularity import PopularityAPIView
+from cicd.views.repository import RepositoryAPIView
 
 urlpatterns = [
-    path("add_token", AddTokenAPIView.as_view(), name="add_token"),
+    path("token", TokenAPIView.as_view(), name="token"),
+    path("repository", RepositoryAPIView.as_view(), name="repository"),
     path("popularity", PopularityAPIView.as_view(), name="popularity"),
 ]

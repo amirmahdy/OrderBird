@@ -7,7 +7,7 @@ from cicd.serializers import AddTokenSerilizer
 from cicd.models import GithubToken
 
 
-class AddTokenAPIView(GenericAPIView):
+class TokenAPIView(GenericAPIView):
 
     @swagger_auto_schema(methods=['post'], request_body=AddTokenSerilizer)
     @action(detail=False, methods=['post'])
@@ -24,3 +24,14 @@ class AddTokenAPIView(GenericAPIView):
             return Response({"message": "OK"}, status=status.HTTP_200_OK)
         else:
             return Response({"message": str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    @swagger_auto_schema(methods=['get'])
+    @action(detail=False, methods=['get'])
+    def get(self, request, *args, **kwargs):
+        """
+        This method returns a list of token's name
+        output   -- token list       
+        """
+        tokens = GithubToken.objects.values_list('id', 'name').all()
+        return Response({"message": tokens}, status=status.HTTP_200_OK)
