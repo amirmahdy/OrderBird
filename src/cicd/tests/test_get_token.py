@@ -6,7 +6,6 @@ class TestGetTokens(TestCase):
     def setUp(self):
         from cicd.models import Repo, GithubToken
         github_token = GithubToken.objects.create(name="test_token", token="NOT_VALID_TOKEN")
-        Repo.objects.create(owner="amirmahdy", repository="market_data_provider")
         Repo.objects.create(owner="amirmahdy", repository="order_bird", token=github_token)
 
     def test_get_tokens(self):

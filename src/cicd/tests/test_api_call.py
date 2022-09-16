@@ -12,17 +12,29 @@ class TestGetTokens(TestCase):
     def test_call_api_public(self):
         """
         This test checks if using the above token we can get a result from call_api method
+        This repository is public and does not require a token
         """
         from cicd.github import GithubRepoClass
         github = GithubRepoClass('amirmahdy', 'market_data_provider')
         validity, result = github.call_api()
         self.assertEqual(result.status_code, 200)
 
-    def test_call_api_private(self):
+    def test_call_api_not_existent(self):
         """
         This test checks if using the above token we can get a result from call_api method
+        This repository does not exists.
         """
         from cicd.github import GithubRepoClass
         github = GithubRepoClass('amirmahdy', 'order_bird')
+        validity, result = github.call_api()
+        self.assertEqual(validity, False)
+
+    def test_call_api_private(self):
+        """
+        This test checks if using the above token we can get a result from call_api method
+        This repository is private.
+        """
+        from cicd.github import GithubRepoClass
+        github = GithubRepoClass('amirmahdy', 'crypto')
         validity, result = github.call_api()
         self.assertEqual(validity, False)
