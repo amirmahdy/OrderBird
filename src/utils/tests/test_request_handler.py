@@ -13,5 +13,5 @@ class TestRequestHandler(unittest.TestCase):
         from utils.request_handler import RequestHandler
         req = RequestHandler()
         url = "https://api.github.com/repos/golang/go"
-        result = req.get(url)
+        validity, result = req.get(url)
         self.assertEqual(result.status_code, 200)

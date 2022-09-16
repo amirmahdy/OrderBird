@@ -27,14 +27,14 @@ class GithubRepoClass:
     def call_api(self):
 
         if self.repo_db.first() is None or self.header is None:
-            result = self.request_handler.get(self.url)
+            validity, result = self.request_handler.get(self.url)
             """
             TODO Add non existent URL to our DB
             """
         elif self.header is not None:
-            result = self.request_handler.get(self.url, self.header)
+            validity, result = self.request_handler.get(self.url, self.header)
 
-        return result
+        return validity, result
 
 
 class GithubTokenClass:

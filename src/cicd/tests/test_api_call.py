@@ -15,7 +15,7 @@ class TestGetTokens(TestCase):
         """
         from cicd.github import GithubRepoClass
         github = GithubRepoClass('amirmahdy', 'market_data_provider')
-        result = github.call_api()
+        validity, result = github.call_api()
         self.assertEqual(result.status_code, 200)
 
     def test_call_api_private(self):
@@ -24,5 +24,5 @@ class TestGetTokens(TestCase):
         """
         from cicd.github import GithubRepoClass
         github = GithubRepoClass('amirmahdy', 'order_bird')
-        result = github.call_api()
-        self.assertIn(result.status_code, [401, 404])
+        validity, result = github.call_api()
+        self.assertEqual(validity, False)

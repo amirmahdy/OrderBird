@@ -7,7 +7,8 @@ class RequestHandler:
         try:
             result = requests.get(url=url, headers=headers)
             result.raise_for_status()
-        except Exception as e:
-            print("ERROR " + str(e.response.status_code))
+            return True, result
 
-        return result
+        except Exception as e:
+            result = " ".join(["ERROR", str(e.response.status_code), str(e.response.url), str(e.response.reason)])
+            return False, result
