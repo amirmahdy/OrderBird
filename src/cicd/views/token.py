@@ -5,12 +5,14 @@ from rest_framework.decorators import action
 from drf_yasg.utils import swagger_auto_schema
 from cicd.serializers import AddTokenSerilizer
 from cicd.models import GithubToken
+from app.exception_handler import unpredicted_exception_handler
 
 
 class TokenAPIView(GenericAPIView):
 
     @swagger_auto_schema(methods=['post'], request_body=AddTokenSerilizer)
     @action(detail=False, methods=['post'])
+    @unpredicted_exception_handler("DEBUG")
     def post(self, request, *args, **kwargs):
         """
         This method adds Github token into system
@@ -25,9 +27,9 @@ class TokenAPIView(GenericAPIView):
         else:
             return Response({"message": str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)
 
-    
     @swagger_auto_schema(methods=['get'])
     @action(detail=False, methods=['get'])
+    @unpredicted_exception_handler("DEBUG")
     def get(self, request, *args, **kwargs):
         """
         This method returns a list of token's name

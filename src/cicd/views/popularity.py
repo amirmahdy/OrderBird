@@ -7,6 +7,7 @@ from drf_yasg.utils import swagger_auto_schema
 from cicd.serializers import RepositorySerilizer
 from cicd.github import GithubRepoClass
 from cicd.services import pop_calculator
+from app.exception_handler import unpredicted_exception_handler
 
 owner = openapi.Parameter('owner', openapi.IN_QUERY, description="Owner", type=openapi.TYPE_STRING)
 repo = openapi.Parameter('repo', openapi.IN_QUERY, description="Repo", type=openapi.TYPE_STRING)
@@ -16,6 +17,7 @@ class PopularityAPIView(GenericAPIView):
 
     @swagger_auto_schema(methods=['get'], manual_parameters=[owner, repo])
     @action(detail=False, methods=['get'])
+    @unpredicted_exception_handler("DEBUG")
     def get(self, request, *args, **kwargs):
         """
         This method adds Github token into system
@@ -29,8 +31,11 @@ class PopularityAPIView(GenericAPIView):
             validity, result = github.call_api()
             if validity:
                 popular = pop_calculator(result)
-                message = "It is popular" if popular else "It is not popular"
-                return Response({"message": message}, status=status.HTTP_200_OK)
+                if type(popular) is bool:
+                    message = "It is popular" if popular else "It is not popular"
+                    return Response({"message": message}, status=status.HTTP_200_OK)
+                else:
+                    return popular
             else:
                 return Response({"message": result}, status=status.HTTP_400_BAD_REQUEST)
         else:

@@ -5,12 +5,14 @@ from rest_framework.decorators import action
 from drf_yasg.utils import swagger_auto_schema
 from cicd.serializers import AddRepositorySerilizer
 from cicd.models import Repo
+from app.exception_handler import unpredicted_exception_handler
 
 
 class RepositoryAPIView(GenericAPIView):
 
     @swagger_auto_schema(methods=['post'], request_body=AddRepositorySerilizer)
     @action(detail=False, methods=['post'])
+    @unpredicted_exception_handler("DEBUG")
     def post(self, request, *args, **kwargs):
         """
         This method adds Github Repository into system
@@ -30,6 +32,7 @@ class RepositoryAPIView(GenericAPIView):
 
     @swagger_auto_schema(methods=['get'])
     @action(detail=False, methods=['get'])
+    @unpredicted_exception_handler("DEBUG")
     def get(self, request, *args, **kwargs):
         """
         This method returns a list of repository
@@ -40,6 +43,7 @@ class RepositoryAPIView(GenericAPIView):
 
     @swagger_auto_schema(methods=['patch'], request_body=AddRepositorySerilizer)
     @action(detail=False, methods=['patch'])
+    @unpredicted_exception_handler("DEBUG")
     def patch(self, request, *args, **kwargs):
         """
         This method modifies a repository
