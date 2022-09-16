@@ -9,3 +9,7 @@ class AddTokenSerilizer(serializers.ModelSerializer):
             "name",
             "token",
         )
+
+class RepositorySerilizer(serializers.Serializer):
+    owner = serializers.CharField(required=True)
+    repo = serializers.CharField(required=True)

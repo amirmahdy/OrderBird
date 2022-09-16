@@ -14,7 +14,7 @@ class TestGetTokens(TestCase):
         This test checks if the above token is accessible via get_token method.
         The test case token will be flushed after test.
         """
-        from cicd.github import GithubRepos
-        github = GithubRepos('amirmahdy', 'order_bird')
+        from cicd.github import GithubRepoClass
+        github = GithubRepoClass('amirmahdy', 'order_bird')
         result = github.get_token()
         self.assertEqual(result, "NOT_VALID_TOKEN")

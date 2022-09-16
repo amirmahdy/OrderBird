@@ -2,7 +2,7 @@ from cicd.models import Repo, GithubToken
 from utils.request_handler import RequestHandler
 
 
-class GithubRepos:
+class GithubRepoClass:
     def __init__(self, owner, repo) -> None:
         self.request_handler = RequestHandler()
         self.owner = owner
@@ -37,7 +37,7 @@ class GithubRepos:
         return result
 
 
-class GithubTokens:
+class GithubTokenClass:
     def __init__(self) -> None:
         pass
 
