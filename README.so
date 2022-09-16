@@ -95,3 +95,10 @@ This page requires user credentials which by default are (admin, 123456).
 This page is accessible from http://127.0.0.1/health_check. 
 
 This endpoint evaluates cache, DB, storage and migration. This endpoint is used by a third-party library [django-health-check](https://django-health-check.readthedocs.io/en/latest/)
+
+## Final Note
+There are some things that can be upgraded in future.
+
+Most importantly encrypting the Token is important for safer storage, using Django secret key.
+
+Searching over GitHub repository, using https://api.github.com/search/repositories?q=OrderBird
