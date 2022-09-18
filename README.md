@@ -1,13 +1,13 @@
 # OrderBird 
 
-This application is aimed to evaluate the popularity of a GitHub repository using GitHub Rest API. In order to gain access to private repositories Token is going to be used.
+This application is aimed to evaluate the popularity of a GitHub repository using GitHub Rest API. To gain access to private repositories Token is going to be used.
 
-This application tech stacks are as follows.
+The application tech stacks are as follows.
 
 Python, Django, PostgreSQL, Nginx, Docker.
 
 ## Considerations
-This application assumes that the user for accessing to private repositories saves the Token in DB. 
+This application assumes that the user saves the Tokens in DB for accessing private repositories. 
 By doing this the redundancy to repeat the token and security issues are reduced.
 This application for gathering edge cases requires a log manager (SPLUNK).
 
@@ -20,7 +20,7 @@ To install the application use the following commands.
 sudo make build
 sudo make start
 ```
-Other make commands are stop down restart.
+Other make commands are, stop, down and restart.
 ## API Reference
 
 The swagger interface is accessible on http://127.0.0.1/swagger/
@@ -29,7 +29,7 @@ The swagger interface is accessible on http://127.0.0.1/swagger/
 ```http
   GET /popularity
 ```
-This endpoint evaluates the popularity of a repository based on number of forks and stars.
+This endpoint evaluates the popularity of a repository based on the number of forks and stars.
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `owner` | `string` | **Required**. Owner of the repository |
@@ -71,7 +71,7 @@ This endpoint modifies a repository token on the DB.
 ```http
   GET /token
 ```
-This endpoint returns all token's name on the DB.
+This endpoint returns all token names on the DB.
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 
@@ -88,16 +88,16 @@ This endpoint saves a token on the DB.
 ### Admin endpoints
 This page is accessible from http://127.0.0.1/admin. 
 
-This page navigates the admin through db and shows elements on the DB.
+This page navigates the admin through DB and shows elements on the DB.
 This page requires user credentials which by default are (admin, 123456).
 
 ### HealthCheck endpoints
 This page is accessible from http://127.0.0.1/health_check. 
 
-This endpoint evaluates cache, DB, storage and migration. This endpoint is used by a third-party library [django-health-check](https://django-health-check.readthedocs.io/en/latest/)
+This endpoint evaluates cache, DB, storage, and migration. This endpoint is using a third-party library [django-health-check](https://django-health-check.readthedocs.io/en/latest/)
 
 ## Final Note
-There are some things that can be upgraded in future.
+There are some things that can be upgraded in the future.
 
 Most importantly encrypting the Token is important for safer storage, using Django secret key.
 
