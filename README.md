@@ -1,4 +1,4 @@
-# OrderBird 
+# Repository Evaluator 
 
 This application is aimed to evaluate the popularity of a GitHub repository using GitHub Rest API. To gain access to private repositories Token is going to be used.
 
